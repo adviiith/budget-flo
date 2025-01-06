@@ -1,12 +1,11 @@
 import React from 'react';
 
 const ExpenseList = ({ entries, onDelete, isHistoryVisible }) => {
-  const latestEntries = entries.slice(-5).reverse(); // Get the last 5 entries
-  const olderEntries = entries.slice(0, -5).reverse(); // Remaining entries
+  const latestEntries = entries.slice(-5).reverse(); 
+  const olderEntries = entries.slice(0, -5).reverse(); 
 
   return (
     <div className="expense-list">
-      {/* Latest Transactions */}
       <div className="latest-transactions">
         <h2>Latest Transactions</h2>
         <div className="latest-transaction-cards">
@@ -23,7 +22,6 @@ const ExpenseList = ({ entries, onDelete, isHistoryVisible }) => {
         </div>
       </div>
 
-      {/* Full Transaction History (conditionally rendered) */}
       {isHistoryVisible && (
         <div className="full-transaction-history">
           <h2>Full Transaction History</h2>

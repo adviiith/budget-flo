@@ -1,20 +1,18 @@
-/* App.css */
 .App {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .main-content {
-    display: flex;
-  }
-  
-  .content {
-    margin-left: 220px; /* to account for sidebar */
-    padding: 20px;
-    flex: 1;
-  }
-  
-  button {
-    cursor: pointer;
-  }
-  
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  display: flex;
+}
+
+.content {
+  margin-left: 220px;
+  padding: 20px;
+  flex: 1;
+}
+
+button {
+  cursor: pointer;
+}

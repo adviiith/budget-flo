@@ -1,26 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import IncomeExpenseForm from './IncomeExpenseForm';
-import ExpenseList from './ExpenseList';
-import { Pie } from 'react-chartjs-2';
-import { jsPDF } from 'jspdf';
-import Papa from 'papaparse';
-import 'jspdf-autotable'; // Import the jsPDF autoTable plugin
+import React, { useState, useEffect } from "react";
+import IncomeExpenseForm from "./IncomeExpenseForm";
+import ExpenseList from "./ExpenseList";
+import { Pie } from "react-chartjs-2";
+import { jsPDF } from "jspdf";
+import Papa from "papaparse";
+import "jspdf-autotable";
 import "./BT.css";
 
-
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Link } from "react-router-dom";
 ChartJS.register(ArcElement, Tooltip, Legend);
-
 
 const BT = () => {
   const [entries, setEntries] = useState([]);
   const [totalIncome, setTotalIncome] = useState(0);
   const [totalExpense, setTotalExpense] = useState(0);
   const [categoryData, setCategoryData] = useState({});
-  const [isHistoryVisible, setIsHistoryVisible] = useState(false); // State to toggle transaction history
+  const [isHistoryVisible, setIsHistoryVisible] = useState(false);
 
   useEffect(() => {
-    const savedEntries = JSON.parse(localStorage.getItem('entries'));
+    const savedEntries = JSON.parse(localStorage.getItem("entries"));
     if (savedEntries) {
       setEntries(savedEntries);
       let income = 0;
@@ -28,11 +27,10 @@ const BT = () => {
       const categories = {};
 
       savedEntries.forEach((entry) => {
-        if (entry.type === 'income') income += entry.amount;
+        if (entry.type === "income") income += entry.amount;
         else expense += entry.amount;
 
-        // Track expenses by category
-        if (entry.type === 'expense') {
+        if (entry.type === "expense") {
           categories[entry.category] = categories[entry.category]
             ? categories[entry.category] + entry.amount
             : entry.amount;
@@ -46,12 +44,12 @@ const BT = () => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('entries', JSON.stringify(entries));
+    localStorage.setItem("entries", JSON.stringify(entries));
   }, [entries]);
 
   const handleAddEntry = (entry) => {
     setEntries([...entries, entry]);
-    if (entry.type === 'income') {
+    if (entry.type === "income") {
       setTotalIncome(totalIncome + entry.amount);
     } else {
       setTotalExpense(totalExpense + entry.amount);
@@ -67,7 +65,7 @@ const BT = () => {
 
   const handleDeleteEntry = (id, amount, type, category) => {
     setEntries(entries.filter((entry) => entry.id !== id));
-    if (type === 'income') {
+    if (type === "income") {
       setTotalIncome(totalIncome - amount);
     } else {
       setTotalExpense(totalExpense - amount);
@@ -80,11 +78,11 @@ const BT = () => {
   };
 
   const data = {
-    labels: ['Income', 'Expense'],
+    labels: ["Income", "Expense"],
     datasets: [
       {
         data: [totalIncome, totalExpense],
-        backgroundColor: ['#4CAF50', '#FF5733'],
+        backgroundColor: ["#4CAF50", "#FF5733"],
       },
     ],
   };
@@ -95,22 +93,22 @@ const BT = () => {
       {
         data: Object.values(categoryData),
         backgroundColor: Object.keys(categoryData).map(
-          (_, index) => `hsl(${(index * 360) / Object.keys(categoryData).length}, 70%, 60%)`
+          (_, index) =>
+            `hsl(${(index * 360) / Object.keys(categoryData).length}, 70%, 60%)`
         ),
       },
     ],
   };
 
   const exportToCSV = () => {
-    // Filter only expenses
-    const expenseEntries = entries.filter(entry => entry.type === 'expense');
+    const expenseEntries = entries.filter((entry) => entry.type === "expense");
     const csv = Papa.unparse(expenseEntries);
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const link = document.createElement("a");
     if (link.download !== undefined) {
       const url = URL.createObjectURL(blob);
-      link.setAttribute('href', url);
-      link.setAttribute('download', 'expenses.csv');
+      link.setAttribute("href", url);
+      link.setAttribute("download", "expenses.csv");
       link.click();
     }
   };
@@ -120,34 +118,35 @@ const BT = () => {
     doc.setFontSize(18);
     doc.text("Expense Report", 20, 20);
 
-    // Using autoTable for the formatted table
-    const tableColumns = ['Category', 'Amount'];
+    const tableColumns = ["Category", "Amount"];
     const tableData = entries
-      .filter((entry) => entry.type === 'expense') // Only include expenses
-      .map(entry => [entry.category, entry.amount]);
+      .filter((entry) => entry.type === "expense")
+      .map((entry) => [entry.category, entry.amount]);
 
     doc.autoTable({
       head: [tableColumns],
       body: tableData,
       startY: 30,
-      theme: 'grid',
-      headStyles: { fillColor: '#4CAF50', textColor: '#fff' },
+      theme: "grid",
+      headStyles: { fillColor: "#4CAF50", textColor: "#fff" },
       bodyStyles: { fontSize: 12 },
       margin: { top: 20, left: 20, right: 20, bottom: 20 },
     });
 
-    doc.save('expenses.pdf');
+    doc.save("expenses.pdf");
   };
 
-  // Toggle visibility of transaction history
   const toggleHistory = () => {
     setIsHistoryVisible(!isHistoryVisible);
   };
 
   return (
-    
     <div className="App">
-      <div></div>
+      <div>
+        <Link to="/tools">
+          <button className="back-button">Back</button>
+        </Link>
+      </div>
       <h1>BudgetFlo</h1>
       <IncomeExpenseForm onAddEntry={handleAddEntry} />
       <ExpenseList entries={entries} onDelete={handleDeleteEntry} />
@@ -170,11 +169,12 @@ const BT = () => {
 
       <div className="history-toggle">
         <button onClick={toggleHistory}>
-          {isHistoryVisible ? 'Hide Full Transaction History' : 'Show Full Transaction History'}
+          {isHistoryVisible
+            ? "Hide Full Transaction History"
+            : "Show Full Transaction History"}
         </button>
       </div>
 
-      {/* Conditionally render the full transaction history */}
       {isHistoryVisible && (
         <div className="transaction-history">
           <h3>Full Transaction History</h3>

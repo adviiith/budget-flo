@@ -1,0 +1,65 @@
+.canbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background: linear-gradient(45deg, #363030, #000000);
+  background-size: 400% 400%;
+  animation: backgroundAnimation 6s infinite;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes backgroundAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.canbar-left .canbar-logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+.canbar-right {
+  display: flex;
+  gap: 20px;
+}
+
+.canbar-right a,
+.canbar-right button {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.canbar-right button {
+  padding: 8px 15px;
+  border-radius: 8px;
+  background: linear-gradient(45deg, #e74c3c, #ff6f61);
+  border: none;
+  box-shadow: 0px 4px 6px rgba(231, 76, 60, 0.4);
+}
+
+.canbar-right button:hover {
+  transform: scale(1.1);
+  background: linear-gradient(45deg, #c0392b, #e74c3c);
+  box-shadow: 0px 6px 8px rgba(192, 57, 43, 0.6);
+}
+
+.canbar-right a:hover {
+  text-decoration: underline;
+  transform: translateY(-2px);
+}

@@ -1,82 +1,107 @@
-/* General styling for the tools page */
 .tools-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #e3f2fd, #ffffff);
-    padding: 20px;
-    font-family: 'Arial', sans-serif;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  font-family: "Arial", sans-serif;
+  text-align: center;
+  background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fbc2eb, #a1c4fd);
+  background-size: 400% 400%;
+  animation: gradientMove 10s ease infinite;
+}
+
+.tools-page h1 {
+  font-size: 3rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.tools-page p {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 40px;
+}
+
+.tool-button {
+  background: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 15px 20px;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.tool-button:hover {
+  background: #45a049;
+  transform: scale(1.05);
+}
+
+.tool-button:disabled {
+  background: #bdbdbd;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.logout-button {
+  background: #ff5722;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.logout-button:hover {
+  background: #e64a19;
+  transform: scale(1.05);
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.animated-background {
+  background: linear-gradient(
+    45deg,
+    #ff9a9e,
+    #ffdde1,
+    #b5fffc,
+    #ff99cc,
+    #f9f586
+  );
+  background-size: 400% 400%;
+  animation: gradientMove 8s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
   }
-  
-  /* Page header */
-  .tools-page h1 {
-    font-size: 3rem;
-    color: #333;
-    margin-bottom: 10px;
+  50% {
+    background-position: 100% 50%;
   }
-  
-  /* Subheader text */
-  .tools-page p {
-    font-size: 1.2rem;
-    color: #666;
-    margin-bottom: 30px;
+  100% {
+    background-position: 0% 50%;
   }
-  
-  /* Grid container for tools */
-  .tools-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 20px;
-    width: 100%;
-    max-width: 600px;
-    margin-bottom: 40px;
-  }
-  
-  /* Individual tool button */
-  .tool-button {
-    background: #4caf50;
-    color: #fff;
-    border: none;
-    padding: 15px 20px;
-    font-size: 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-  }
-  
-  /* Hover effect for tool buttons */
-  .tool-button:hover {
-    background: #45a049;
-    transform: scale(1.05);
-  }
-  
-  /* Disabled button styling */
-  .tool-button:disabled {
-    background: #bdbdbd;
-    cursor: not-allowed;
-    box-shadow: none;
-  }
-  
-  /* Logout button */
-  .logout-button {
-    background: #ff5722;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-  }
-  
-  /* Hover effect for logout button */
-  .logout-button:hover {
-    background: #e64a19;
-    transform: scale(1.05);
-  }
-  
+}

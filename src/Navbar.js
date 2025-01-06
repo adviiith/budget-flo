@@ -1,12 +1,14 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './Nb.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import "./Nb.css";
 
 const Navbar = ({ user, handleLogout }) => {
   return (
     <nav className="navbar">
       <div className="navbar-left">
-        <Link to="/" className="navbar-logo">BudgetFlo</Link>
+        <Link to="/" className="navbar-logo">
+          BudgetFlo
+        </Link>
       </div>
       <div className="navbar-right">
         {user ? (

@@ -11,18 +11,22 @@ const IncomeExpenseForm = ({ onAddEntry }) => {
     "Entertainment",
     "Rent",
     "Utilities",
-    "Salary",
     "Shopping",
-    "Travel", // New category
-    "Healthcare" // New category
+    "Travel",
+    "Healthcare",
   ]);
 
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // If category is empty, use "Misc"
-    const finalCategory = category === "" ? "Misc" : (type === "expense" ? (category === "Custom" ? customCategory : category) : "N/A");
+    const finalCategory =
+      category === ""
+        ? "Misc"
+        : type === "expense"
+        ? category === "Custom"
+          ? customCategory
+          : category
+        : "N/A";
 
     const entry = {
       id: Date.now(),
@@ -33,28 +37,25 @@ const IncomeExpenseForm = ({ onAddEntry }) => {
 
     onAddEntry(entry);
 
-    // Reset form fields
     setAmount("");
-    setCategory(""); // Reset category to empty to avoid showing "Misc"
+    setCategory("");
     setCustomCategory("");
   };
 
-  // Handle the button click for credit/debit
   const handleTypeChange = (type) => {
     setType(type);
     if (type === "expense") {
-      setShowCategoryDropdown(true); // Show category dropdown for expenses
+      setShowCategoryDropdown(true);
     } else {
-      setShowCategoryDropdown(false); // Hide category dropdown for credit
+      setShowCategoryDropdown(false);
     }
   };
 
-  // Add custom category to the list
   const handleAddCustomCategory = () => {
     if (customCategory.trim() && !categories.includes(customCategory)) {
       setCategories((prev) => [...prev, customCategory]);
-      setCategory(customCategory); // Select the newly added category
-      setCustomCategory(""); // Clear the input
+      setCategory(customCategory);
+      setCustomCategory("");
     }
   };
 
@@ -70,7 +71,6 @@ const IncomeExpenseForm = ({ onAddEntry }) => {
         required
       />
 
-      {/* Buttons for credit/debit */}
       <div className="button-group">
         <button
           type="button"
@@ -88,7 +88,6 @@ const IncomeExpenseForm = ({ onAddEntry }) => {
         </button>
       </div>
 
-      {/* Show category dropdown only when 'Debit' is selected */}
       {showCategoryDropdown && (
         <>
           <label htmlFor="category">Expense Category</label>
@@ -106,7 +105,6 @@ const IncomeExpenseForm = ({ onAddEntry }) => {
             <option value="Custom">Custom</option>
           </select>
 
-          {/* Show custom category input if "Custom" is selected */}
           {category === "Custom" && (
             <div className="custom-category-input">
               <input
